@@ -2,4 +2,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  max-width: 900px!important;
+}
+.box-size {
+  width: 300px!important;
+  height: 300px!important;
+  display: "inline-flex";
+}
+.grid-style {
+  max-width: 900px!important;
 }

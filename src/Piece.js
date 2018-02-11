@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
+
 class Piece extends Component {
     render() {
+        
         return (
-            <div>
-                <i alt="piece" aria-hidden="true" 
-                /*onClick function and className function go here
-                onClick={} 
-                className={}*/></i>
-                <p>Eventually a piece</p>
+            <div className="border border-dark box-size">
+                <img alt="piece" onClick={this.props.onChoose} src={this.props.src}/>
             </div>
         );
     }
