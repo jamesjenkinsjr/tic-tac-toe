@@ -12,46 +12,55 @@ class App extends Component {
         {
           magicNum: 1,
           chosen: false,
+          player: '',
           src: Empty
         },
         {
-          magicNum: 1,
+          magicNum: 2,
           chosen: false,
+          player: '',
           src: Empty
         },
         {
-          magicNum: 1,
+          magicNum: 4,
           chosen: false,
+          player: '',
           src: Empty
         },
         {
-          magicNum: 1,
+          magicNum: 8,
           chosen: false,
+          player: '',
           src: Empty
         },
         {
-          magicNum: 1,
+          magicNum: 16,
           chosen: false,
+          player: '',
           src: Empty
         },
         {
-          magicNum: 1,
+          magicNum: 32,
           chosen: false,
+          player: '',
           src: Empty
         },
         {
-          magicNum: 1,
+          magicNum: 64,
           chosen: false,
+          player: '',
           src: Empty
         },
         {
-          magicNum: 1,
+          magicNum: 128,
           chosen: false,
+          player: '',
           src: Empty
         },
         {
-          magicNum: 1,
+          magicNum: 256,
           chosen: false,
+          player: '',
           src: Empty
         }
       ]
@@ -76,7 +85,6 @@ class App extends Component {
     const clickedSquare = this.state.boxes[position];
     const first = this.state.boxes.slice(0, position);
     const last = this.state.boxes.slice(position + 1);
-    const piece = this.props.src;
     const newSquares = [
       ...first,
       {...clickedSquare, src: this.togglePiece(clickedSquare) },
