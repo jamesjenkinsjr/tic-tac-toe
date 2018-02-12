@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Piece from './Piece';
+import Empty from './empty.png';
+import LetterO from './letter-o.png';
+import LetterX from './letter-x.png';
 
 class App extends Component {
   constructor() {
@@ -9,60 +12,65 @@ class App extends Component {
         {
           magicNum: 1,
           chosen: false,
-          src:'./empty.png'
+          src: Empty
         },
         {
           magicNum: 1,
           chosen: false,
-          src: './empty.png'
+          src: Empty
         },
         {
           magicNum: 1,
           chosen: false,
-          src: './empty.png'
+          src: Empty
         },
         {
           magicNum: 1,
           chosen: false,
-          src: './empty.png'
+          src: Empty
         },
         {
           magicNum: 1,
           chosen: false,
-          src: './empty.png'
+          src: Empty
         },
         {
           magicNum: 1,
           chosen: false,
-          src: './empty.png'
+          src: Empty
         },
         {
           magicNum: 1,
           chosen: false,
-          src: './empty.png'
+          src: Empty
         },
         {
           magicNum: 1,
           chosen: false,
-          src: './empty.png'
+          src: Empty
+        },
+        {
+          magicNum: 1,
+          chosen: false,
+          src: Empty
         }
       ]
     }
     this.makeMove = this.makeMove.bind(this);
     
   }
-  togglePiece() {
-    let pieceImage = this.props.src;
-    if(pieceImage === './empty.png') {
-      pieceImage = './letter-x.png';
-    } else if (pieceImage === './letter-x.png') {
-      pieceImage = './letter-o.png';
-    } else {
-      pieceImage = './empty.png';
+  togglePiece(box) {
+    let pieceImage = box.src;
+
+    if (pieceImage === Empty) {
+      pieceImage = LetterO;
+    } else if (pieceImage === LetterO) {
+      pieceImage = LetterX;
+    } else  {
+      pieceImage = Empty;
     }
-    console.log(pieceImage);
-    return pieceImage;
-  }
+     return pieceImage;
+   }
   makeMove(position) {
     
     const clickedSquare = this.state.boxes[position];
@@ -71,7 +79,7 @@ class App extends Component {
     const piece = this.props.src;
     const newSquares = [
       ...first,
-      {...clickedSquare, chosen: !clickedSquare.chosen },
+      {...clickedSquare, src: this.togglePiece(clickedSquare) },
       ...last
     ];
     this.setState({boxes: newSquares});
@@ -89,7 +97,9 @@ class App extends Component {
       <div>
         <h1>Tactical Tick's Toes</h1>
         <div className="container d-flex grid-style">
-          { GameGrid }
+          <div className="row">
+            { GameGrid }
+          </div>
         </div>
       </div>
     );
