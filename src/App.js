@@ -8,7 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentPlayer: 1,
+      currentPlayer: '',
       boxes: [
         {
           magicNum: 1,
@@ -72,6 +72,7 @@ class App extends Component {
   }
   clearBoard() {
     this.setState({ 
+      currentPlayer: '',
       boxes: this.state.boxes.map(box => ({
         ...box,
         chosen: false,
@@ -83,12 +84,12 @@ class App extends Component {
     let pieceImage = box.src;
     let player = this.state.currentPlayer;
 
-    if (player === 1) {
+    if (player === 'X') {
       pieceImage = LetterO;
-      player = 0;
+      player = 'O';
       } else {
       pieceImage = LetterX;
-      player = 1;
+      player = 'X';
     } 
       this.setState({currentPlayer: player});
      return pieceImage;
@@ -118,6 +119,7 @@ class App extends Component {
       <div>
         <h1>Tactical Tick's Toes</h1>
         <button onClick={this.clearBoard}>Reset Board</button>
+        <h2>Last Play: {this.state.currentPlayer}</h2>
         <div className="container d-flex grid-style">
           <div className="row">
             { GameGrid }
