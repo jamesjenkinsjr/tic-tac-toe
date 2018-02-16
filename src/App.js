@@ -8,6 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      currentPlayer: 1,
       boxes: [
         {
           magicNum: 1,
@@ -66,18 +67,30 @@ class App extends Component {
       ]
     }
     this.makeMove = this.makeMove.bind(this);
+    this.clearBoard = this.clearBoard.bind(this);
     
   }
-  togglePiece(box) {
+  clearBoard() {
+    this.setState({ 
+      boxes: this.state.boxes.map(box => ({
+        ...box,
+        chosen: false,
+        player: '',
+        src: Empty
+      }))})
+  }
+  togglePiece(box, piece) {
     let pieceImage = box.src;
+    let player = this.state.currentPlayer;
 
-    if (pieceImage === Empty) {
+    if (player === 1) {
       pieceImage = LetterO;
-    } else if (pieceImage === LetterO) {
+      player = 0;
+      } else {
       pieceImage = LetterX;
-    } else  {
-      pieceImage = Empty;
-    }
+      player = 1;
+    } 
+      this.setState({currentPlayer: player});
      return pieceImage;
    }
   makeMove(position) {
@@ -104,6 +117,7 @@ class App extends Component {
     return (
       <div>
         <h1>Tactical Tick's Toes</h1>
+        <button onClick={this.clearBoard}>Reset Board</button>
         <div className="container d-flex grid-style">
           <div className="row">
             { GameGrid }
