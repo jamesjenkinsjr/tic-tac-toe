@@ -117,9 +117,15 @@ class App extends Component {
     />) 
     return (
       <div>
-        <h1>Tactical Tick's Toes</h1>
-        <button onClick={this.clearBoard}>Reset Board</button>
-        <h2>Last Play: {this.state.currentPlayer}</h2>
+        <div className="container d-flex justify-content-center">
+          <div className="row">
+            <div class="col-md-12">
+              <h1>Tactical Tick's Toes</h1>
+              <button onClick={this.clearBoard}>Reset Board</button>
+              <h2>Last Play: {this.state.currentPlayer}</h2>
+            </div>
+          </div>
+        </div>
         <div className="container d-flex grid-style">
           <div className="row">
             { GameGrid }
