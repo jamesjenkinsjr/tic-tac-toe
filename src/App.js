@@ -8,13 +8,14 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentPlayer: '',
+      nextPlayer: 'O',
       boxes: [
         {
           magicNum: 1,
           chosen: false,
           player: '',
           src: Empty
+
         },
         {
           magicNum: 2,
@@ -80,31 +81,52 @@ class App extends Component {
         src: Empty
       }))})
   }
-  togglePiece(box, piece) {
-    let pieceImage = box.src;
-    let player = this.state.currentPlayer;
 
-    if (player === 'X') {
+  
+  togglePiece(box) {
+    let nextPlayer = this.state.nextPlayer;
+    let pieceImage = box.src;
+    let boxOwner = box.player;
+    let boxTaken = box.chosen;
+    if (nextPlayer === 'O' && boxTaken === false) {
       pieceImage = LetterO;
-      player = 'O';
-      } else {
+      boxTaken = true;
+      boxOwner = 'O'
+      const playerO = {chosen: boxTaken, player: boxOwner, src: pieceImage};
+      return playerO;
+    } else if (nextPlayer === 'X' && boxTaken === false) {
       pieceImage = LetterX;
-      player = 'X';
-    } 
-      this.setState({currentPlayer: player});
-     return pieceImage;
+      boxTaken = true;
+      boxOwner = 'X';
+      const playerX = {chosen: boxTaken, player: boxOwner, src: pieceImage};
+      return playerX;
+    } else {
+      return;
+    }
    }
   makeMove(position) {
     
     const clickedSquare = this.state.boxes[position];
+    if (clickedSquare.chosen) {
+      alert('Square is taken!');
+      return;
+    } else {
+      clickedSquare.chosen = false;
+    }
+    let playerToggle = this.state.nextPlayer;
+    if(playerToggle === 'X') {
+      playerToggle = 'O';
+    } else {
+      playerToggle = 'X';
+    }
     const first = this.state.boxes.slice(0, position);
     const last = this.state.boxes.slice(position + 1);
     const newSquares = [
       ...first,
-      {...clickedSquare, src: this.togglePiece(clickedSquare) },
+      {...clickedSquare, ...this.togglePiece(clickedSquare) },
       ...last
     ];
-    this.setState({boxes: newSquares});
+    this.setState({boxes: newSquares, nextPlayer: playerToggle});
 
   }
   render() {
@@ -112,17 +134,18 @@ class App extends Component {
     const GameGrid = boxes.map((box, index) => <Piece 
       key={index} 
       onChoose={() => this.makeMove(index)}
-      src={box.src} 
+      src={box.src}
+      chosen={box.chosen} 
       /*magicNum={this.magicNum}*/
     />) 
     return (
       <div>
         <div className="container d-flex justify-content-center">
           <div className="row">
-            <div class="col-md-12">
+            <div className="col-md-12">
               <h1>Tactical Tick's Toes</h1>
               <button onClick={this.clearBoard}>Reset Board</button>
-              <h2>Last Play: {this.state.currentPlayer}</h2>
+              <h2>Next Player: {this.state.nextPlayer}</h2>
             </div>
           </div>
         </div>
